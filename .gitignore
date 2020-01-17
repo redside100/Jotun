@@ -1,0 +1,5 @@
+__pycache__/
+.idea/
+venv/
+files/app.log
+files/token.yaml

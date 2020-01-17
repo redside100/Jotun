@@ -1,0 +1,4 @@
+not_initialized: "**%name%**, you don't have a current class right now! Choose one with **>class**!"
+reset_confirmation: "**%name%**, are you sure you want to reset? (type confirm)"
+reset_cancelled: "Reset cancelled."
+reset_successful: "Reset complete."

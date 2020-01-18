@@ -3,7 +3,7 @@ import logging
 import yaml
 import os
 import messages
-from command_handlers import command_ping, command_info, command_reset
+from command_handlers import command_ping, command_info, command_reset, command_class, command_inventory, command_sp
 from database import Database
 import confirmation_dict
 
@@ -23,7 +23,8 @@ async def noop(args, db):
     pass
 
 # ======================== HANDLERS ======================== #
-command_handlers = {'ping': command_ping.handle, 'info': command_info.handle, 'reset': command_reset.handle}
+command_handlers = {'ping': command_ping.handle, 'info': command_info.handle, 'reset': command_reset.handle,
+                    'class': command_class.handle, 'inventory': command_inventory.handle, 'sp': command_sp.handle}
 # ========================================================== #
 
 

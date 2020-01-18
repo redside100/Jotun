@@ -2,3 +2,17 @@ not_initialized: "**%name%**, you don't have a current class right now! Choose o
 reset_confirmation: "**%name%**, are you sure you want to reset? (type confirm)"
 reset_cancelled: "Reset cancelled."
 reset_successful: "Reset complete."
+invalid_class: "**%name%**, that's an invalid class. You can choose from **Knight**, **Priest**, **Wizard**, or **Paladin**."
+class_successful: "**%name%** is now a **%class%**!"
+class_usage: "Declare your class with: **>class <knight/priest/wizard/paladin>**"
+use_usage: "Use an item with: **>use <item name>**, or check your inventory with **>inventory**"
+invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
+class_already_chosen: "**%name%**, you're already a **%class%**. To choose a different class, you would need to reset ALL of your stats with **>reset**!"
+
+
+# ======================= Emojis ==================== #
+emoji_mana: "<:mana:667907245392003073>"
+emoji_level: "<:level:667909268409679882>"
+emoji_xp: "<:xp:667908777952935950>"
+emoji_gold: "<:gold:667906459031437332>"
+emoji_health_potion: "<:health_potion:668178268603678755>"

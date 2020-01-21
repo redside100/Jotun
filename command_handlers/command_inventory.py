@@ -14,13 +14,10 @@ class_colors = {
 async def handle(message, db):
     id = message.author.id
     name = message.author.name
-    info = db.get_player_info(id)
+    info = db.init_info_check(message)
 
-    if info is None:
-        db.add_new_player(id)
-        info = db.get_player_info(id)
-
-    embed = discord.Embed(title="{}'s Inventory".format(name), description="Class: {}".format(info['class']), color=class_colors[info['class']])
+    embed = discord.Embed(title="{}'s Inventory".format(name),
+                          description="Class: {}".format(info['class']), color=class_colors[info['class']])
     embed.set_thumbnail(url=message.author.avatar_url)
     content = "\u200B"
 

@@ -11,7 +11,7 @@ class ItemType(Enum):
 class Item:
     def __init__(self, name, item_type, emoji):
         self.name = name
-        self.type = item_type
+        self.item_type = item_type
         self.emoji = emoji
 
     def get_name(self):
@@ -23,5 +23,5 @@ class Item:
     def get_emoji(self):
         return self.emoji
 
-    async def use(self, message):
+    async def use(self, message, db):
         pass

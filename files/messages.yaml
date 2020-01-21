@@ -1,3 +1,4 @@
+# General
 not_initialized: "**%name%**, you don't have a current class right now! Choose one with **>class**!"
 reset_confirmation: "**%name%**, are you sure you want to reset? (type confirm)"
 reset_cancelled: "Reset cancelled."
@@ -9,6 +10,10 @@ use_usage: "Use an item with: **>use <item name>**, or check your inventory with
 invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
 class_already_chosen: "**%name%**, you're already a **%class%**. To choose a different class, you would need to reset ALL of your stats with **>reset**!"
 
+
+# ======================= HP Potion ================= #
+health_already_full: "**%name%**, you're already at max HP!"
+use_health_potion: "**%name%**: It's a bit bitter... but it restored **%amount%** HP!"
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"

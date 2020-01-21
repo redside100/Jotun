@@ -39,11 +39,7 @@ class_info = {
 async def handle(message, db):
     id = message.author.id
     name = message.author.name
-    info = db.get_player_info(id)
-
-    if info is None:
-        db.add_new_player(id)
-        info = db.get_player_info(id)
+    info = db.init_info_check(message)
 
     # We don't let the user change their class if they already have one!
     if not info['class'] == "None":

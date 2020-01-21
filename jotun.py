@@ -3,7 +3,8 @@ import logging
 import yaml
 import os
 import messages
-from command_handlers import command_ping, command_info, command_reset, command_class, command_inventory, command_sp
+from command_handlers import command_ping, command_info, command_reset, command_class, command_inventory, command_sp,\
+    command_use, command_dmg
 from database import Database
 import confirmation_dict
 
@@ -24,7 +25,8 @@ async def noop(args, db):
 
 # ======================== HANDLERS ======================== #
 command_handlers = {'ping': command_ping.handle, 'info': command_info.handle, 'reset': command_reset.handle,
-                    'class': command_class.handle, 'inventory': command_inventory.handle, 'sp': command_sp.handle}
+                    'class': command_class.handle, 'inventory': command_inventory.handle, 'sp': command_sp.handle,
+                    'use': command_use.handle, 'dmg': command_dmg.handle}
 # ========================================================== #
 
 

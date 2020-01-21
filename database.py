@@ -85,3 +85,13 @@ class Database:
         self.client = MongoClient()
         self.db = self.client['jotun_db']
         self.player_collection = self.db['players']
+
+    def init_info_check(self, message):
+        id = message.author.id
+        info = self.get_player_info(id)
+
+        if info is None:
+            self.add_new_player(id)
+            info = self.get_player_info(id)
+
+        return info

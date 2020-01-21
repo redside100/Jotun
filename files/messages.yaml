@@ -2,18 +2,27 @@
 not_initialized: "**%name%**, you don't have a current class right now! Choose one with **>class**!"
 reset_confirmation: "**%name%**, are you sure you want to reset? (type confirm)"
 reset_cancelled: "Reset cancelled."
-reset_successful: "Reset complete."
-invalid_class: "**%name%**, that's an invalid class. You can choose from **Knight**, **Priest**, **Wizard**, or **Paladin**."
-class_successful: "**%name%** is now a **%class%**!"
-class_usage: "Declare your class with: **>class <knight/priest/wizard/paladin>**"
-use_usage: "Use an item with: **>use <item name>**, or check your inventory with **>inventory**"
-invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
 class_already_chosen: "**%name%**, you're already a **%class%**. To choose a different class, you would need to reset ALL of your stats with **>reset**!"
-
 
 # ======================= HP Potion ================= #
 health_already_full: "**%name%**, you're already at max HP!"
 use_health_potion: "**%name%**: It's a bit bitter... but it restored **%amount%** HP!"
+
+# ====================== Usage Message ==================== #
+class_usage: "Declare your class with: **>class <knight/priest/wizard/paladin>**"
+use_usage: "Use an item with: **>use <item name>**, or check your inventory with **>inventory**"
+buy_usage: "Buy an item with: **>buy <item name>**, or check the shop items with **>shop**"
+
+# ====================== Invalid Message ==================== #
+invalid_class: "**%name%**, that's an invalid class. You can choose from **Knight**, **Priest**, **Wizard**, or **Paladin**."
+invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
+invalid_shop_item: "**%name%**, you can't buy this item, it's not in the shop!"
+invalid_gold_amount: "**%name%**, you can't buy this item, you don't have the gold for it!"
+
+# ====================== Successful Message ==================== #
+reset_successful: "Reset complete."
+class_successful: "**%name%** is now a **%class%**!"
+purchase_successful: "**%name%** bought a **%item_name%**"
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"
@@ -21,3 +30,5 @@ emoji_level: "<:level:667909268409679882>"
 emoji_xp: "<:xp:667908777952935950>"
 emoji_gold: "<:gold:667906459031437332>"
 emoji_health_potion: "<:health_potion:668178268603678755>"
+
+# ======================= Links ==================== #

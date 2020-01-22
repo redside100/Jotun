@@ -12,7 +12,7 @@ async def handle(message, db):
     # check if there's more than one argument
     if len(message.content.split(" ")) > 1:
 
-        item_name = message.content[message.content.find(" ") + 1:]
+        item_name = message.content[message.content.find(" ") + 1:].lower()
         item_id_inventory = info['items']
 
         # Get the requested item's ID, from the name
@@ -33,7 +33,8 @@ async def handle(message, db):
         else:
             await message.channel.send(messages.data['invalid_gold_amount'].replace('%name%', name))
             return
-        # Use the item
+
+        # Item purchased message
         await message.channel.send(messages.data['purchase_successful']
                                    .replace('%name%', name).replace('%item_name%', item.get_name()))
     else:

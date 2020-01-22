@@ -5,3 +5,4 @@ class Player:
 
     def get_info(self):
         return self.db.get_player_info(self.id)
+

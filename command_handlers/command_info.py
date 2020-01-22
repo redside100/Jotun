@@ -17,7 +17,6 @@ async def handle(message, db):
     name = message.author.name
     info = db.init_info_check(message)
 
-
     embed = discord.Embed(title=name, description="Class: {}".format(info['class']), color=class_colors[info['class']])
     embed.set_thumbnail(url=message.author.avatar_url)
     embed.add_field(name="**HP** :heart:", value="{}/{}".format(info['hp'], info['max_hp']))

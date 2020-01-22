@@ -1,6 +1,5 @@
 import messages
 import confirmation_dict
-from confirmation_dict import ConfirmationType
 import asyncio
 
 

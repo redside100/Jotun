@@ -1,6 +1,7 @@
 import messages
 
-#gold command
+
+# gold command
 async def handle(message, db):
     id = message.author.id
     info = db.init_info_check(message)

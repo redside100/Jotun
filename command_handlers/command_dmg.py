@@ -9,4 +9,3 @@ async def handle(message, db):
     info['hp'] = 1
     db.set_player_info(id, info)
     await message.channel.send("Set your HP to 1!")
-

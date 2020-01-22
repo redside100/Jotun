@@ -22,7 +22,15 @@ invalid_gold_amount: "**%name%**, you can't buy this item, you don't have the go
 # ====================== Successful Message ==================== #
 reset_successful: "Reset complete."
 class_successful: "**%name%** is now a **%class%**!"
-purchase_successful: "**%name%** bought a **%item_name%**"
+purchase_successful: "**%name%** bought a **%item_name%**!"
+
+
+# ======================= Raids ===================== #
+no_raid: "There isn't a current raid on this server!"
+already_in_raid: "**%name%**, you're already in this raid!"
+raid_full: "**%name%**, the raid is full!"
+raid_already_started: "**%name%**, the raid already started!"
+raid_join_successful: "**%name%** joined the raid!"
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"
@@ -32,3 +40,6 @@ emoji_gold: "<:gold:667906459031437332>"
 emoji_health_potion: "<:health_potion:668178268603678755>"
 
 # ======================= Links ==================== #
+
+# ======================= Images ==================== #
+img_slime_king: "https://i.imgur.com/ZHmXhb5.gif"

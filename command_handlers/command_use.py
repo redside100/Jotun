@@ -12,7 +12,7 @@ async def handle(message, db):
     # check if there's more than one argument
     if len(message.content.split(" ")) > 1:
 
-        item_name = message.content[message.content.find(" ") + 1:]
+        item_name = message.content[message.content.find(" ") + 1:].lower()
         item_id_inventory = info['items']
 
         # Get the requested item's ID, from the name

@@ -6,6 +6,8 @@ item_map = {
 item_shop_map = {
     "potion_hp": HealthPotionItem
 }
+
+# Keep everything lower case
 item_name_to_id = {
-    "Health Potion": "potion_hp"
+    "health potion": "potion_hp"
 }

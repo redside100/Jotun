@@ -13,7 +13,7 @@ class Item:
         self.name = name
         self.item_type = item_type
         self.emoji = emoji
-        self.gold_amount = gold_amount;
+        self.gold_amount = gold_amount
 
     def get_name(self):
         return self.name

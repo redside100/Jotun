@@ -3,8 +3,8 @@ from raids.raid import Raid
 raids = {}
 
 
-def add_raid(server_id, raid_boss):
-    raids[server_id] = Raid(server_id, raid_boss)
+def add_raid(server_id, raid_boss, default_channel, event_loop):
+    raids[server_id] = Raid(server_id, raid_boss, default_channel, event_loop)
 
 
 def end_raid(server_id):

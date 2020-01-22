@@ -2,6 +2,7 @@ import discord
 import messages
 import raids.raid_manager as raid_manager
 from entities.raid_boss import BossTier
+from time import strftime, gmtime
 
 tier_colors = {
     BossTier.COMMON: 0xC0C0C0,
@@ -22,7 +23,8 @@ async def handle(message, db):
         await message.channel.send(messages.data['no_raid'])
         return
 
-    raid_boss = raid_manager.get_raid(server_id).get_raid_boss()
+    raid = raid_manager.get_raid(server_id)
+    raid_boss = raid.get_raid_boss()
 
     embed = discord.Embed(title=raid_boss.get_name(), description="Tier: {}".format(raid_boss.get_tier().value),
                           color=tier_colors[raid_boss.get_tier()])
@@ -32,7 +34,9 @@ async def handle(message, db):
     embed.add_field(name="\u200B", value="\u200B")
     embed.add_field(name="**ATK** :crossed_swords:", value=raid_boss.get_atk())
     embed.add_field(name="**EVA** :dash:", value=raid_boss.get_eva())
-    embed.add_field(name="\u200B", value="\u200B")
+    time_left = strftime("%M:%S", gmtime(raid.get_timer().get_time_left()))
+    embed.add_field(name="**Time Left**".format(raid.get_raid_state().value),  # Raid state time left
+                    value=time_left)
 
     footer = raid_manager.get_raid(server_id).get_raid_state().value
 

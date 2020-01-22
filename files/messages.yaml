@@ -30,7 +30,10 @@ no_raid: "There isn't a current raid on this server!"
 already_in_raid: "**%name%**, you're already in this raid!"
 raid_full: "**%name%**, the raid is full!"
 raid_already_started: "**%name%**, the raid already started!"
-raid_join_successful: "**%name%** joined the raid!"
+raid_join_successful: "**%name%** joined the raid! (**%time%** left)"
+force_raid_start: "Time's up! Raid started."
+raid_not_enough_players: "It seems like no one is here... raid cancelled."
+ten_seconds_left: "**10** seconds left to join the raid..."
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"

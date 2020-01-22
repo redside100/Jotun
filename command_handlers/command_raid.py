@@ -1,6 +1,7 @@
 import messages
 import raids.raid_manager as raid_manager
 from raids.raid import RaidState
+from time import strftime, gmtime
 
 
 # Join raid command
@@ -28,7 +29,9 @@ async def handle(message, db):
         return
 
     if raid.add_player(id, name):
-        await message.channel.send(messages.data['raid_join_successful'].replace('%name%', name))
+        time_left = strftime("%M:%S", gmtime(raid.get_timer().get_time_left()))
+        await message.channel.send(messages.data['raid_join_successful'].replace('%name%', name)
+                                   .replace('%time%', time_left))
     else:
         await message.channel.send(messages.data['raid_full'].replace("%name%", name))
 

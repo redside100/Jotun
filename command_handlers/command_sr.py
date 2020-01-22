@@ -1,4 +1,5 @@
 import messages
+import asyncio
 import command_handlers.command_raid_info as command_raid_info
 import raids.raid_manager as raid_manager
 from entities.boss_slime_king import SlimeKingBoss
@@ -14,7 +15,7 @@ async def handle(message, db):
         await message.channel.send("Raid already in progress")
         return
 
-    raid_manager.add_raid(server_id, SlimeKingBoss(1))
+    raid_manager.add_raid(server_id, SlimeKingBoss(1), message.channel, asyncio.get_event_loop())
     await message.channel.send("Raid started (Slime King)")
 
     # Call this cause why not

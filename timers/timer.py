@@ -40,12 +40,13 @@ class Timer:
             if self.event_tick == self.current_tick:
                 # Call event coroutine if exists
                 if all(var is not None for var in [self.event_func, self.event_args, self.event_tick]):
-                    self.main_event_loop.create_task(self.event_func(self.event_args))
+                    # No weird delay when using this function
+                    asyncio.run_coroutine_threadsafe(self.event_func(self.event_args), self.main_event_loop)
 
         if not self.cancel:
             # No longer alive, call end coroutine
             self.alive = False
-            self.main_event_loop.create_task(self.end_func(self.args))
+            asyncio.run_coroutine_threadsafe(self.end_func(self.args), self.main_event_loop)
 
     def set_event(self, time, func, *args):
         self.event_func = func

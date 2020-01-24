@@ -37,6 +37,19 @@ force_raid_start: "Time's up! Raid started."
 raid_not_enough_players: "It seems like no one is here... raid cancelled."
 ten_seconds_left: "**10** seconds left to join the raid..."
 raid_in_other_server: "**%name%**, you're already in a raid on another server!"
+raid_failed: "All players are gone... raid failed."
+raid_player_move: "%name%, your move. **<attack/skill/guard/flee>**"
+raid_attack_dodged: "**%boss_name%** dodged the attack!"
+raid_attack_hit: "**%boss_name%** took **%amount%** damage! (**%hp%** left)"
+raid_defeated: "**%boss_name%** was defeated!"
+
+# ======================= Raid Bosses ================ #
+slime_king_mitosis: "**Slime King** uses **Mitosis**!"
+slime_king_mitosis_dead: "**Lesser Slime** was defeated...\n**Slime King** returns."
+slime_king_prepare_crash: "**%boss_name%** prepares **Crash**..."
+slime_king_tackle: "**%boss_name%** uses **Tackle**..."
+slime_king_crash: "**%boss_name%** uses **Crash**..."
+
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"

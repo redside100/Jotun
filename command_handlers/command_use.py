@@ -1,6 +1,7 @@
 import messages
 from items.item import Item, ItemType
 import items.item_map
+import raids.raid_manager as raid_manager
 
 
 # Use item command
@@ -8,6 +9,11 @@ async def handle(message, db):
     id = message.author.id
     name = message.author.name
     info = db.init_info_check(message)
+
+    # Check if the player is in a raid, and if it's their turn
+    if raid_manager.is_player_in_raid(id):
+        await message.channel.send(messages.data['invalid_in_raid'].replace('%name%', name))
+        return
 
     # check if there's more than one argument
     if len(message.content.split(" ")) > 1:

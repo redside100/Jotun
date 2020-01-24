@@ -1,5 +1,5 @@
 from enum import Enum
-
+import random
 
 class BossTier(Enum):
     COMMON = "Common"
@@ -23,6 +23,7 @@ class RaidBoss:
         self.raid_time = raid_time
         self.url = url
         self.alive = True
+        self.is_minion = False
 
     def get_name(self):
         return self.name
@@ -58,7 +59,8 @@ class RaidBoss:
         self.hp -= amount
         if self.hp < 0:
             self.hp = 0
-            self.alive = False
+            if not self.is_minion:
+                self.alive = False
 
     def heal(self, amount):
         self.hp += amount
@@ -71,6 +73,18 @@ class RaidBoss:
     def get_url(self):
         return self.url
     
-    def handle_turn(self):
+    def handle_turn(self, players):
         pass
+
+    def set_minion(self, minion):
+        self.is_minion = minion
+
+    # Calculate dodge rng outcome
+    def evaded_roll(self):
+        roll = random.randint(1, 100)
+
+        if roll > self.eva:
+            return False
+
+        return True
 

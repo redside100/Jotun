@@ -1,5 +1,5 @@
 from enum import Enum
-
+import random
 
 class StatusEffect(Enum):
     POISON = "Poison"
@@ -24,9 +24,16 @@ class Player:
         self.poison_turn = 0
         self.poison_dmg = 0
         self.status_effects = []
+        self.fled = False
 
     def get_info(self):
         return self.db.get_player_info(self.id)
+
+    def get_name(self):
+        return self.name
+
+    def get_id(self):
+        return self.id
 
     def damage(self, damage):
         # check for health buffs
@@ -53,6 +60,23 @@ class Player:
         self.poison_dmg = damage
         self.poison_turn = turns
 
+    def add_extra_eva(self, amount):
+        if self.get_info()['eva'] + self.extra_eva + amount > 50:
+            self.extra_eva += 50 - self.get_info()['eva'] - self.extra_eva
+        else:
+            self.extra_eva += amount
+
     def is_dead(self):
         return self.get_info()['hp'] + self.extra_hp <= 0
+
+    # Calculate dodge rng outcome
+    def evaded_roll(self):
+        total_evade = self.get_info()['eva'] + self.extra_eva
+        roll = random.randint(1, 100)
+
+        if roll > total_evade:
+            return False
+
+        return True
+
 

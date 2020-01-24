@@ -5,6 +5,7 @@ from enum import Enum
 from entities.player import Player
 from timers.timer import Timer
 import command_handlers.command_raid_info as command_raid_info
+import discord
 
 
 class RaidState(Enum):
@@ -24,7 +25,9 @@ class Raid:
         self.default_channel = default_channel
         self.event_loop = event_loop
         self.players = []
-        self.timer = Timer(60, event_loop, self.start_raid, default_channel)
+        self.current_player = None
+        self.current_player_index = -1
+        self.timer = Timer(15, event_loop, self.start_raid, default_channel)
         self.timer.set_event(10, self.announce_time_left, default_channel)
         self.timer.start()
 
@@ -52,6 +55,40 @@ class Raid:
 
         # Show raid info
         await command_raid_info.show_info(channel)
+
+        await self.next_player(channel)
+
+    async def next_player(self, channel, flee=False):
+        # Flee marks if the caller of next_player has fled the battle (removed from player list)
+        if not flee:
+            self.current_player_index += 1
+
+        # Check if all players gone (no players left)
+        if len(self.get_players()) == 0:
+            await self.end_raid(channel)
+            await channel.send(messages.data['raid_failed'])
+            return
+
+        # If we're still not done with players
+        if self.current_player_index < len(self.get_players()):
+            self.current_player = self.get_players()[self.current_player_index]
+            await channel.send(messages.data['raid_player_move'].replace('%name%', '<@{}>'
+                                                                         .format(self.current_player.get_id())))
+        else:
+            # Reset index counter, go to boss turn
+            self.current_player_index = -1
+            self.current_player = None
+            self.raid_state = RaidState.RAID_BOSS_TURN
+            await self.handle_boss_turn(channel)
+
+    async def handle_boss_turn(self, channel):
+        event_log = self.raid_boss.handle_turn(self.players)
+        embed = discord.Embed(title="Boss Event Log", color=0xFFFFFF)
+        embed.set_thumbnail(url=self.raid_boss.get_url())
+        embed.add_field(name='\u200B', value=event_log)
+        await channel.send(embed=embed)
+        self.raid_state = RaidState.PLAYER_TURN
+        await self.next_player(channel)
 
     async def announce_time_left(self, args):
 
@@ -88,6 +125,9 @@ class Raid:
 
     def get_players(self):
         return self.players
+
+    def get_current_player(self):
+        return self.current_player
 
     def has_player(self, id):
         for player in self.players:

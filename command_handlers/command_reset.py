@@ -10,7 +10,6 @@ async def handle(message, db):
 
     await message.channel.send(messages.data['reset_confirmation'].replace('%name%', name))
     confirmation_dict.confirmations[id] = (confirmation_dict.ConfirmationType.RESET, message.id)
-
     await cancel(message)
 
 

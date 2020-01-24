@@ -18,11 +18,13 @@ invalid_class: "**%name%**, that's an invalid class. You can choose from **Knigh
 invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
 invalid_shop_item: "**%name%**, you can't buy this item, it's not in the shop!"
 invalid_gold_amount: "**%name%**, you can't buy this item, you don't have the gold for it!"
+invalid_in_raid: "**%name%**, you can't use this command while in a raid!"
 
 # ====================== Successful Message ==================== #
 reset_successful: "Reset complete."
 class_successful: "**%name%** is now a **%class%**!"
 purchase_successful: "**%name%** bought a **%item_name%**!"
+heal_successful: "**%name%** healed **%amount%** HP!"
 
 
 # ======================= Raids ===================== #
@@ -34,6 +36,7 @@ raid_join_successful: "**%name%** joined the raid! (**%time%** left)"
 force_raid_start: "Time's up! Raid started."
 raid_not_enough_players: "It seems like no one is here... raid cancelled."
 ten_seconds_left: "**10** seconds left to join the raid..."
+raid_in_other_server: "**%name%**, you're already in a raid on another server!"
 
 # ======================= Emojis ==================== #
 emoji_mana: "<:mana:667907245392003073>"
@@ -43,6 +46,9 @@ emoji_gold: "<:gold:667906459031437332>"
 emoji_health_potion: "<:health_potion:668178268603678755>"
 
 # ======================= Links ==================== #
+
+# ======================= Cooldowns ================= #
+cooldown_timer: "**%name%**, you can't use **%action%** for another **%time%**."
 
 # ======================= Images ==================== #
 img_slime_king: "https://i.imgur.com/ZHmXhb5.gif"

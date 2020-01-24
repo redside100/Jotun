@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 
 import logging
+import time
 
 """
 Player collection format:
@@ -29,12 +30,19 @@ class Database:
         self.client = MongoClient()  # Default localhost:27017
         self.db = self.client['jotun_db']
         self.player_collection = self.db['players']
+        self.player_cd_collection = self.db['player_cd']
 
     def get_player_info(self, id):
         return self.player_collection.find_one({'id': str(id)})
 
+    def get_player_cds(self, id):
+        return self.player_cd_collection.find_one({'id': str(id)})
+
     def set_player_info(self, id, info):
         return self.player_collection.update_one({'id': str(id)}, {'$set': info})
+
+    def set_player_cds(self, id, cd_info):
+        return self.player_cd_collection.update_one({'id': str(id)}, {'$set': cd_info})
 
     def add_new_player(self, id):
         default_info = {
@@ -55,6 +63,14 @@ class Database:
             'equips': []
         }
         return self.player_collection.insert_one(default_info)
+
+    def init_player_cds(self, id):
+        default_cds = {
+            'id': str(id),
+            'heal': int(time.time()),
+            'search': int(time.time())
+        }
+        return self.player_cd_collection.insert_one(default_cds)
 
     def reset_player(self, id):
         default_info = {
@@ -95,3 +111,13 @@ class Database:
             info = self.get_player_info(id)
 
         return info
+
+    def init_cd_check(self, message):
+        id = message.author.id
+        player_cds = self.get_player_cds(id)
+
+        if player_cds is None:
+            self.init_player_cds(id)
+            player_cds = self.get_player_cds(id)
+
+        return player_cds

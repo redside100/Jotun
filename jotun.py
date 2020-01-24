@@ -4,7 +4,7 @@ import yaml
 import os
 import messages
 from command_handlers import command_ping, command_info, command_reset, command_class, command_inventory, command_buy, \
-    command_use, command_dmg, command_gold, command_shop, command_sr, command_raid_info, command_raid
+    command_use, command_dmg, command_gold, command_shop, command_sr, command_raid_info, command_raid, command_heal
 from database import Database
 import confirmation_dict
 
@@ -26,9 +26,9 @@ async def noop(args, db):
 # ======================== HANDLERS ======================== #
 command_handlers = {'ping': command_ping.handle, 'info': command_info.handle, 'reset': command_reset.handle,
                     'class': command_class.handle, 'inventory': command_inventory.handle, 'buy': command_buy.handle,
-                    'use': command_use.handle, 'dmg': command_dmg.handle, 'gold': command_gold.handle,
-                    'shop': command_shop.handle, 'sr': command_sr.handle, 'raid': command_raid.handle,
-                    'raidinfo': command_raid_info.handle}
+                    'use': command_use.handle, 'dmg': command_dmg.handle, 'heal': command_heal.handle,
+                    'gold': command_gold.handle, 'shop': command_shop.handle, 'sr': command_sr.handle,
+                    'raid': command_raid.handle, 'raidinfo': command_raid_info.handle}
 # ========================================================== #
 
 

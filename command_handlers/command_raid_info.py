@@ -23,6 +23,11 @@ async def handle(message, db):
         await message.channel.send(messages.data['no_raid'])
         return
 
+    await show_info(message.channel)
+
+
+async def show_info(channel):
+    server_id = channel.guild.id
     raid = raid_manager.get_raid(server_id)
     raid_boss = raid.get_raid_boss()
 
@@ -41,11 +46,11 @@ async def handle(message, db):
     footer = raid_manager.get_raid(server_id).get_raid_state().value
 
     # Check if there are players
-    if len(raid_manager.get_raid(server_id).get_players().values()) > 0:
+    if len(raid_manager.get_raid(server_id).get_players()) > 0:
         # Add player list
-        footer += '\n(' + ", ".join(raid_manager.get_raid(server_id).get_players().values()) + ')'
+        player_names = [player.name for player in raid_manager.get_raid(server_id).get_players()]
+        footer += '\n(' + ", ".join(player_names) + ')'
 
     embed.set_footer(text=footer)
 
-    await message.channel.send(embed=embed)
-
+    await channel.send(embed=embed)

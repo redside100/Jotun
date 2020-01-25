@@ -31,7 +31,7 @@ async def handle(message, db):
         db.set_player_info(id, info)
 
         # set cd (3 hrs)
-        player_cds['heal'] = curr_time + 30   # 10800 for 3 hrs, lower for testing
+        player_cds['heal'] = curr_time + 10800   # 10800 for 3 hrs, lower for testing
         db.set_player_cds(id, player_cds)
 
         await message.channel.send(messages.data['heal_successful'].replace('%name%', name)

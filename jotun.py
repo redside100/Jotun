@@ -52,7 +52,7 @@ class MyClient(discord.Client):
             if len(message.content.split(" ")) > 0:
                 cmd = message.content.replace(prefix, '').split(" ")[0]
 
-            await command_handlers.get(cmd, noop)(message, db)
+            await command_handlers.get(cmd.lower(), noop)(message, db)
 
         # Confirmation listener
         if message.content.lower() == 'confirm':

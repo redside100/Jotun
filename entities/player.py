@@ -1,6 +1,7 @@
 from enum import Enum
 import random
 
+
 class StatusEffect(Enum):
     POISON = "Poison"
     INVULNERABLE = "Invulnerable"

@@ -57,7 +57,7 @@ class RaidBoss:
 
     def damage(self, amount):
         self.hp -= amount
-        if self.hp < 0:
+        if self.hp <= 0:
             self.hp = 0
             if not self.is_minion:
                 self.alive = False

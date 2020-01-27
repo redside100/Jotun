@@ -19,6 +19,7 @@ invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't 
 invalid_shop_item: "**%name%**, you can't buy this item, it's not in the shop!"
 invalid_gold_amount: "**%name%**, you can't buy this item, you don't have the gold for it!"
 invalid_in_raid: "**%name%**, you can't use this command while in a raid!"
+no_class_raid: "**%name%**, you can't join raids without a class. Use **>class** to declare one!"
 
 # ====================== Successful Message ==================== #
 reset_successful: "Reset complete."

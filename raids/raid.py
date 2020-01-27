@@ -6,6 +6,7 @@ from entities.player import Player
 from timers.timer import Timer
 import command_handlers.command_raid_info as command_raid_info
 import discord
+import asyncio
 
 
 class RaidState(Enum):
@@ -62,6 +63,11 @@ class Raid:
         # Flee marks if the caller of next_player has fled the battle (removed from player list)
         if not flee:
             self.current_player_index += 1
+
+        # Set to none so people can't do anything during the wait
+        self.current_player = None
+
+        await asyncio.sleep(1)
 
         # Check if all players gone (no players left)
         if len(self.get_players()) == 0:

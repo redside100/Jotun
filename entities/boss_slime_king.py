@@ -15,16 +15,25 @@ TIME: 600 seconds
 
 class SlimeKingBoss(RaidBoss):
     def __init__(self, level):
-        super(SlimeKingBoss, self).__init__("Slime King", 500, 12, 15, 50, 100, BossTier.COMMON, level, 600,
+        # Scale w/ level
+
+        hp = int(400 + ((level - 1) * 50))
+        atk = int(10 + ((level - 1) * 2))
+        xp = int(50 + ((level - 1) * 10))
+        gold = int(100 + ((level - 1) * 20))
+
+        super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, xp, gold, BossTier.COMMON, level, 600,
                                             messages.data['img_slime_king'])
         self.preparing_crash = False
         self.mitosis_used = False
+        self.old_max_hp = self.max_hp
+        self.old_atk = self.atk
 
     # need to return an event log
     def handle_turn(self, players):
 
         # Use mitosis (set to minion, "invincible")
-        if self.hp <= 250 and not self.mitosis_used:
+        if self.hp <= self.max_hp / 2 and not self.mitosis_used:
             self.preparing_crash = False
             self.mitosis_used = True
             self.set_minion(True)
@@ -32,9 +41,9 @@ class SlimeKingBoss(RaidBoss):
 
             event_log = messages.data['slime_king_mitosis']
 
-            self.hp = 100
-            self.max_hp = 100
-            self.atk = 6
+            self.hp = int(self.max_hp / 4)
+            self.max_hp = int(self.max_hp / 4)
+            self.atk = int(self.atk / 2)
 
             return event_log
 
@@ -44,9 +53,10 @@ class SlimeKingBoss(RaidBoss):
             self.set_minion(False)
             self.name = "Slime King"
             event_log = messages.data['slime_king_mitosis_dead']
-            self.hp = 250
-            self.max_hp = 500
-            self.atk = 12
+
+            self.max_hp = self.old_max_hp
+            self.hp = int(self.max_hp / 2)
+            self.atk = self.old_atk
 
             return event_log
 
@@ -55,7 +65,7 @@ class SlimeKingBoss(RaidBoss):
             self.preparing_crash = False
             event_log = messages.data['slime_king_crash'].replace('%boss_name%', self.name) + '\n\n'
             target_player = random.choice(players)
-            damage = random.randint(35, 60)
+            damage = random.randint(self.atk, self.atk * 2)
             if not target_player.evaded_roll():
                 target_player.damage(damage)
                 hp_left = str(target_player.get_info()['hp'])
@@ -79,7 +89,7 @@ class SlimeKingBoss(RaidBoss):
             event_log = messages.data['slime_king_tackle'].replace('%boss_name%', self.name) + '\n\n'
             # Attack all players
             for player in players:
-                damage = random.randint(7, 20)
+                damage = random.randint(1, 4) + self.atk
                 if not player.evaded_roll():
                     player.damage(damage)
                     hp_left = str(player.get_info()['hp'])

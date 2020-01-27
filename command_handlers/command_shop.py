@@ -2,6 +2,7 @@ import messages
 import items.item_map as item_map
 import discord
 
+
 #Shop command
 async def handle(message, db):
     embed = discord.Embed(title="Shop")

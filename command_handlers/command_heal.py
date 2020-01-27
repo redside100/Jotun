@@ -3,6 +3,7 @@ from items.item import Item, ItemType
 import items.item_map
 import time
 import random
+import utils
 import raids.raid_manager as raid_manager
 
 
@@ -40,16 +41,7 @@ async def handle(message, db):
         pass
     else:
         seconds = player_cds['heal'] - curr_time
-        m, s = divmod(seconds, 60)
-        h, m = divmod(m, 60)
-        time_msg = ''
-
-        if h > 0:
-            time_msg += "{}h {:02d}m".format(h, m)
-        elif m > 0:
-            time_msg += "{} min".format(m)
-        else:
-            time_msg += "{} sec".format(s)
+        time_msg = utils.format_time(seconds)
 
         await message.channel.send(messages.data['cooldown_timer'].replace('%name%', name).replace('%action%', 'Heal')
                                    .replace('%time%', time_msg))

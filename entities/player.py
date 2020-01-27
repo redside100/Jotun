@@ -1,13 +1,4 @@
-from enum import Enum
 import random
-
-
-class StatusEffect(Enum):
-    POISON = "Poison"
-    INVULNERABLE = "Invulnerable"
-    HEALING = "Healing"
-    STUNNED = "Stunned"
-    WEAK = "Weak"
 
 
 class Player:
@@ -60,6 +51,9 @@ class Player:
     def poison(self, turns, damage):
         self.poison_dmg = damage
         self.poison_turn = turns
+
+    def cleanse(self):
+        self.status_effects = []
 
     def add_extra_eva(self, amount):
         if self.get_info()['eva'] + self.extra_eva + amount > 50:

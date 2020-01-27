@@ -1,12 +1,18 @@
 import messages
 import confirmation_dict
 import asyncio
+import raids.raid_manager as raid_manager
 
 
 # Reset command
 async def handle(message, db):
     id = message.author.id
     name = message.author.name
+
+    # Don't if the player is in a raid
+    if raid_manager.is_player_in_raid(id):
+        await message.channel.send(messages.data['invalid_in_raid'].replace('%name%', name))
+        return
 
     await message.channel.send(messages.data['reset_confirmation'].replace('%name%', name))
     confirmation_dict.confirmations[id] = (confirmation_dict.ConfirmationType.RESET, message.id)

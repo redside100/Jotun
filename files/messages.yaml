@@ -43,6 +43,8 @@ raid_player_move: "%name%, your move. **<attack/skill/guard/flee>**"
 raid_attack_dodged: "**%boss_name%** dodged the attack!"
 raid_attack_hit: "**%boss_name%** took **%amount%** damage! (**%hp%** left)"
 raid_defeated: "**%boss_name%** was defeated!"
+raid_fled: "**%name%** ran away..."
+
 
 # ======================= Raid Bosses ================ #
 slime_king_mitosis: "**Slime King** uses **Mitosis**!"

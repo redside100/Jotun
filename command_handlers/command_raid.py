@@ -11,7 +11,7 @@ async def handle(message, db):
     server_id = message.guild.id
     info = db.init_info_check(message)
 
-    # Check if the palyer has a class
+    # Check if the player has a class
     if info['class'] == "None":
         await message.channel.send(messages.data['no_class_raid'].replace("%name%", name))
         return

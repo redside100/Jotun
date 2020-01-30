@@ -17,6 +17,7 @@ class RaidState(Enum):
     FAILED = "Failed"
 
 
+# Any functions to be called by the timer should have a force kwarg
 class Raid:
     def __init__(self, server_id, raid_boss, default_channel, event_loop):
         self.server_id = server_id
@@ -28,18 +29,11 @@ class Raid:
         self.players = []
         self.current_player = None
         self.current_player_index = -1
-        self.timer = Timer(15, event_loop, self.start_raid, default_channel)
+        self.timer = Timer(15, event_loop, self.start_raid, default_channel, force=True)
         self.timer.set_event(10, self.announce_time_left, default_channel)
         self.timer.start()
 
-    async def start_raid(self, channel):
-
-        force = False
-
-        # Check if it was called by the timer class, it passes tuples
-        if type(channel) == tuple:
-            channel = channel[0]
-            force = True
+    async def start_raid(self, channel, force=False):
 
         if len(self.players) == 0:
             await channel.send(messages.data['raid_not_enough_players'])
@@ -96,21 +90,10 @@ class Raid:
         self.raid_state = RaidState.PLAYER_TURN
         await self.next_player(channel)
 
-    async def announce_time_left(self, args):
-
-        if type(args) == tuple:
-            channel = args[0]
-
+    async def announce_time_left(self, channel, force=False):
         await channel.send(messages.data['ten_seconds_left'])
 
-    async def end_raid(self, channel):
-
-        force = False
-        # Check if it was called by the timer class, it passes tuples
-        if type(channel) == tuple:
-            channel = channel[0]
-            force = True
-
+    async def end_raid(self, channel, force=False):
         raid_manager.end_raid(self.server_id)
 
     def get_raid_boss(self):

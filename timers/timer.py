@@ -4,13 +4,16 @@ import threading
 
 # Fucking black magic (threaded asyncio coroutines)
 class Timer:
-    def __init__(self, seconds, event_loop, end_func, *args):
+
+    # The force argument is only used to notify end/event functions that it's been force called by a timer
+    def __init__(self, seconds, event_loop, end_func, *args, force=False):
         self.current_tick = seconds
         self.end_func = end_func
         self.event_func = None
         self.event_args = None
         self.event_tick = None
         self.args = args
+        self.force = force
         self.alive = True
         self.cancel = False
         # We gotta use the main asyncio event loop to interact with the bot
@@ -41,12 +44,19 @@ class Timer:
                 # Call event coroutine if exists
                 if all(var is not None for var in [self.event_func, self.event_args, self.event_tick]):
                     # No weird delay when using this function
-                    asyncio.run_coroutine_threadsafe(self.event_func(self.event_args), self.main_event_loop)
+                    if self.force:
+                        asyncio.run_coroutine_threadsafe(self.event_func(*self.event_args, force=self.force),
+                                                         self.main_event_loop)
+                    else:
+                        asyncio.run_coroutine_threadsafe(self.event_func(*self.event_args), self.main_event_loop)
 
         if not self.cancel:
             # No longer alive, call end coroutine
             self.alive = False
-            asyncio.run_coroutine_threadsafe(self.end_func(self.args), self.main_event_loop)
+            if self.force:
+                asyncio.run_coroutine_threadsafe(self.end_func(*self.args, force=self.force), self.main_event_loop)
+            else:
+                asyncio.run_coroutine_threadsafe(self.end_func(*self.args), self.main_event_loop)
 
     def set_event(self, time, func, *args):
         self.event_func = func

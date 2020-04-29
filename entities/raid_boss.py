@@ -10,7 +10,8 @@ class BossTier(Enum):
 
 
 class RaidBoss:
-    def __init__(self, name, hp, atk, eva, xp_reward, gold_reward, tier, level, raid_time, url):
+    def __init__(self, name, hp, atk, eva, xp_reward, gold_reward, tier, level, raid_time, url, server_id):
+        self.server_id = server_id
         self.name = name
         self.hp = hp
         self.max_hp = hp

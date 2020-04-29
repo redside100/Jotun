@@ -30,6 +30,9 @@ heal_successful: "**%name%** healed **%amount%** HP!"
 
 # ======================= Raids ===================== #
 no_raid: "There isn't a current raid on this server!"
+raid_ongoing: "There's already a raid in progress on this server!"
+raid_found: "Searching... found a raid! (**%boss_name%**)"
+no_raid_found: "Searching... no raid found."
 already_in_raid: "**%name%**, you're already in this raid!"
 raid_full: "**%name%**, the raid is full!"
 raid_already_started: "**%name%**, the raid already started!"

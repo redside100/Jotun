@@ -96,7 +96,7 @@ class SlimeKingBoss(RaidBoss):
         else:
             event_log = messages.data['slime_king_tackle'].replace('%boss_name%', self.name) + '\n\n'
             # Attack all players
-            for player in players:
+            for player in players.copy():
                 damage = random.randint(1, 4) + self.atk
                 if not player.evaded_roll():
                     player.damage(damage)

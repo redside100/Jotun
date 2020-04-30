@@ -1,6 +1,7 @@
 from entities.raid_boss import RaidBoss, BossTier
 import messages
 import random
+from items.item_health_potion import HealthPotionItem
 from raids import raid_manager
 
 """
@@ -13,17 +14,22 @@ TIER: Common
 TIME: 600 seconds
 """
 
+rewards = [
+    ("potion_hp", 2),
+    None
+]
+
 
 class SlimeKingBoss(RaidBoss):
     def __init__(self, level, server_id):
         # Scale w/ level
 
-        hp = int(400 + ((level - 1) * 50))
+        hp = int(20 + ((level - 1) * 50))
         atk = int(10 + ((level - 1) * 2))
         xp = int(50 + ((level - 1) * 10))
         gold = int(100 + ((level - 1) * 20))
 
-        super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, xp, gold, BossTier.COMMON, level, 600,
+        super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, xp, gold, BossTier.COMMON, level, 600, rewards,
                                             messages.data['img_slime_king'], server_id)
         self.preparing_crash = False
         self.mitosis_used = False
@@ -67,20 +73,9 @@ class SlimeKingBoss(RaidBoss):
             event_log = messages.data['slime_king_crash'].replace('%boss_name%', self.name) + '\n\n'
             target_player = random.choice(players)
             damage = random.randint(self.atk, self.atk * 2)
-            if not target_player.evaded_roll():
-                target_player.damage(damage)
-                hp_left = str(target_player.get_info()['hp'])
-                if target_player.extra_hp > 0:
-                    hp_left += ' [+ {}]'.format(target_player.extra_hp)
 
-                event_log += '**{}** took **{}** damage (**{}** HP left).\n'.format(target_player.get_name(),
-                                                                                 damage, hp_left)
-                # Check if player is dead, reset and remove if so
-                if target_player.is_dead():
-                    target_player.db.reset_player(target_player.id)
-                    raid = raid_manager.get_raid(self.server_id)
-                    raid.players.remove(target_player)
-                    event_log += ':skull: **{}** died...\n'.format(target_player.get_name())
+            if not target_player.evaded_roll():
+                event_log = self.damage_player(target_player, damage, event_log)
 
             else:
                 event_log += '**{}** dodged the attack!\n'.format(target_player.get_name())
@@ -99,20 +94,7 @@ class SlimeKingBoss(RaidBoss):
             for player in players.copy():
                 damage = random.randint(1, 4) + self.atk
                 if not player.evaded_roll():
-                    player.damage(damage)
-                    hp_left = str(player.get_info()['hp'])
-                    if player.extra_hp > 0:
-                        hp_left += ' [+ {}]'.format(player.extra_hp)
-
-                    event_log += '**{}** took **{}** damage (**{}** HP left).\n'.format(player.get_name(),
-                                                                                      damage, hp_left)
-
-                    # Check if player is dead, reset and remove if so
-                    if player.is_dead():
-                        player.db.reset_player(player.id)
-                        raid = raid_manager.get_raid(self.server_id)
-                        raid.players.remove(player)
-                        event_log += ':skull: **{}** died...\n'.format(player.get_name())
+                    event_log = self.damage_player(player, damage, event_log)
 
                 else:
                     event_log += '**{}** dodged the attack!\n'.format(player.get_name())

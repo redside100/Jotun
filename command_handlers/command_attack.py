@@ -63,5 +63,3 @@ async def handle(message, db):
                 await raid.next_player(raid.default_channel)
             else:
                 await raid.end_raid(raid.default_channel)
-                await message.channel.send(messages.data['raid_defeated'].replace('%boss_name%',
-                                                                                  raid.get_raid_boss().get_name()))

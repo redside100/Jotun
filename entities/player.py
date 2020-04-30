@@ -1,5 +1,5 @@
 import random
-
+import math
 
 class Player:
     def __init__(self, id, name, db):
@@ -73,5 +73,32 @@ class Player:
             return False
 
         return True
+
+    # Returns a tuple, containing levels to be added, left over xp, and xp to next
+    # f(x) = 50 * 1.1^(x - 1)
+    # Inverse: f(x) = ln(x/50)/ln(1.1) + 1
+    def calculate_raw_xp_to_levels(self, raw_xp):
+        curr_level = self.get_info()['level']
+        curr_xp = self.get_info()['xp']
+
+        def level_to_xp(level):
+            return int(50 * pow(1.1, level - 1))
+
+        levels = 0
+        while raw_xp > 0:
+            if curr_xp + raw_xp >= level_to_xp(curr_level):
+                levels += 1
+                raw_xp -= level_to_xp(curr_level) - curr_xp
+                curr_level += 1
+            else:
+                break
+
+        return levels, raw_xp, level_to_xp(curr_level)
+
+
+
+
+
+
 
 

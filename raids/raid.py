@@ -1,8 +1,11 @@
+import random
+
 import messages
 import raids.raid_manager as raid_manager
 from enum import Enum
 
 from entities.player import Player
+from items import item_map
 from timers.timer import Timer
 import command_handlers.command_raid_info as command_raid_info
 import discord
@@ -94,6 +97,59 @@ class Raid:
         await channel.send(messages.data['ten_seconds_left'])
 
     async def end_raid(self, channel, force=False):
+        await channel.send(messages.data['raid_defeated'].replace('%boss_name%',
+                                                                          self.get_raid_boss().get_name()))
+        self.current_player = None
+        self.raid_state = RaidState.REWARD
+
+        await asyncio.sleep(1)
+        rewards = self.get_raid_boss().get_rewards()
+
+        reward_xp = self.get_raid_boss().get_reward_xp()
+        reward_log = "All raiders gained **{}** XP.\n\n".format(reward_xp)
+
+        for player in self.players:
+
+            info = player.get_info()
+
+            # Gold drop
+            gold = self.get_raid_boss().get_reward_gold(info['level'])
+            reward_log += "**{}** found **{}** {}.\n".format(player.get_name(), gold, messages.data['emoji_gold'])
+            info['gold'] += gold
+
+            # Exp drop
+            xp_info = player.calculate_raw_xp_to_levels(reward_xp)
+
+            info['level'] += xp_info[0]
+            info['xp'] = xp_info[1]
+            info['xp_to_next'] = xp_info[2]
+
+            info['max_hp'] += xp_info[0] * 5
+            info['max_mp'] += xp_info[0] * 5
+            info['atk'] += xp_info[0]
+
+            # Item drops
+            reward = random.choice(rewards)
+            if reward is not None:
+                item_id = reward[0]
+                if item_id in info['items']:
+                    info['items'][item_id] += reward[1]
+                else:
+                    info['items'][item_id] = reward[1]
+                player.db.set_player_info(player.id, info)
+
+                item_obj = item_map.item_map[item_id]()
+                item_name = item_obj.get_name()
+                item_emoji = item_obj.get_emoji()
+                reward_log += "**{}** found: {} {} (x{})\n".format(player.get_name(), item_emoji, item_name, reward[1])
+
+            player.db.set_player_info(player.id, info)
+
+        embed = discord.Embed(title="Reward Log", color=0xF8C300)
+        embed.set_thumbnail(url=self.raid_boss.get_url())
+        embed.add_field(name='\u200B', value=reward_log)
+        await channel.send(embed=embed)
+
         raid_manager.end_raid(self.server_id)
 
     def get_raid_boss(self):

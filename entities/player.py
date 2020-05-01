@@ -89,6 +89,7 @@ class Player:
             if curr_xp + raw_xp >= level_to_xp(curr_level):
                 levels += 1
                 raw_xp -= level_to_xp(curr_level) - curr_xp
+                curr_xp = 0
                 curr_level += 1
             else:
                 break

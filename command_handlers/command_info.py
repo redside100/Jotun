@@ -1,6 +1,6 @@
 import discord
 import messages
-
+from items import item_map
 
 class_colors = {
     'None': 9807270,
@@ -19,7 +19,18 @@ async def handle(message, db):
 
     embed = discord.Embed(title=name, description="Class: {}".format(info['class']), color=class_colors[info['class']])
     embed.set_thumbnail(url=message.author.avatar_url)
-    embed.add_field(name="**HP** :heart:", value="{}/{}".format(info['hp'], info['max_hp']))
+    hp_info = "{}/{}".format(info['hp'], info['max_hp'])
+
+    extra_hp = 0
+
+    for item_id in info['equips']:
+        if item_id.endswith("_hp"):
+            extra_hp = item_map.item_map[item_id]().get_value()
+
+    if extra_hp > 0:
+        hp_info += " _(+{})_".format(extra_hp)
+
+    embed.add_field(name="**HP** :heart:", value=hp_info)
     embed.add_field(name="**MP** {}".format(messages.data['emoji_mana']), value="{}/{}".format(info['mp'], info['max_mp']))
     embed.add_field(name="\u200B", value="\u200B")
     embed.add_field(name="**ATK** :crossed_swords:", value=info['atk'])

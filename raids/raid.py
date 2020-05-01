@@ -121,7 +121,12 @@ class Raid:
             xp_info = player.calculate_raw_xp_to_levels(reward_xp)
 
             info['level'] += xp_info[0]
-            info['xp'] = xp_info[1]
+
+            if xp_info[0] > 0:
+                info['xp'] = xp_info[1]
+            else:
+                info['xp'] += xp_info[1]
+
             info['xp_to_next'] = xp_info[2]
 
             info['max_hp'] += xp_info[0] * 5

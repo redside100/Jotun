@@ -11,11 +11,14 @@ use_health_potion: "**%name%**: It's a bit bitter... but it restored **%amount%*
 # ====================== Usage Message ==================== #
 class_usage: "Declare your class with: **>class <knight/priest/wizard/paladin>**"
 use_usage: "Use an item with: **>use <item name>**, or check your inventory with **>inventory**"
+equip_usage: "Equip an item with: **>equip <item name>**, or dequip them with **>dequip <item name>**"
 buy_usage: "Buy an item with: **>buy <item name>**, or check the shop items with **>shop**"
 
 # ====================== Invalid Message ==================== #
 invalid_class: "**%name%**, that's an invalid class. You can choose from **Knight**, **Priest**, **Wizard**, or **Paladin**."
 invalid_use_item: "**%name%**, you can't use this item right now, or it doesn't exist in your inventory!"
+invalid_equip_item: "**%name%**, you can't equip this item right now, or it doesn't exist in your inventory!"
+invalid_dequip_item: "**%name%**, you can't de-equip this item right now, or it doesn't exist in your equips!"
 invalid_shop_item: "**%name%**, you can't buy this item, it's not in the shop!"
 invalid_gold_amount: "**%name%**, you can't buy this item, you don't have the gold for it!"
 invalid_in_raid: "**%name%**, you can't use this command while in a raid!"
@@ -26,7 +29,8 @@ reset_successful: "Reset complete."
 class_successful: "**%name%** is now a **%class%**!"
 purchase_successful: "**%name%** bought a **%item_name%**!"
 heal_successful: "**%name%** healed **%amount%** HP!"
-
+equip_successful: "Equipped a **%name%**!"
+dequip_successful: "De-equipped a **%name%**!"
 
 # ======================= Raids ===================== #
 no_raid: "There isn't a current raid on this server!"
@@ -63,6 +67,7 @@ emoji_level: "<:level:667909268409679882>"
 emoji_xp: "<:xp:667908777952935950>"
 emoji_gold: "<:gold:667906459031437332>"
 emoji_health_potion: "<:health_potion:668178268603678755>"
+emoji_hp_ring: "<:hp_ring:705560131353706557>"
 
 # ======================= Links ==================== #
 

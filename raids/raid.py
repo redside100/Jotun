@@ -5,6 +5,7 @@ import raids.raid_manager as raid_manager
 from enum import Enum
 
 from entities.player import Player
+from entities.status_effect import StatusEffect
 from items import item_map
 from timers.timer import Timer
 import command_handlers.command_raid_info as command_raid_info
@@ -48,7 +49,7 @@ class Raid:
 
         # Go to player turn
         self.raid_state = RaidState.PLAYER_TURN
-        self.timer = Timer(self.raid_time, self.event_loop, self.end_raid, self.default_channel)
+        self.timer = Timer(self.raid_time, self.event_loop, self.end_raid, self.default_channel, force=True)
         self.timer.start()
 
         # Show raid info
@@ -74,9 +75,26 @@ class Raid:
 
         # If we're still not done with players
         if self.current_player_index < len(self.get_players()):
+
+            temp_player = self.get_players()[self.current_player_index]
+
+            turn_msg = messages.data['raid_player_move'].replace('%name%', '<@{}>'.format(temp_player.get_id()))
+
+            # Stun check
+            if StatusEffect.STUNNED in temp_player.status_effects:
+                breakout = random.randint(1, 2)
+                if breakout == 1:
+                    turn_msg = messages.data['raid_player_breakout_stun'].replace('%name%', '<@{}>'
+                                                                                  .format(temp_player.get_id()))
+                    self.get_players()[self.current_player_index].status_effects.remove(StatusEffect.STUNNED)
+                else:
+                    await channel.send(messages.data['raid_player_stunned'].replace('%name%', temp_player.get_name()))
+                    await self.next_player(channel)
+                    return
+
+            # Set current player after stun check
             self.current_player = self.get_players()[self.current_player_index]
-            await channel.send(messages.data['raid_player_move'].replace('%name%', '<@{}>'
-                                                                         .format(self.current_player.get_id())))
+            await channel.send(turn_msg)
         else:
             # Reset index counter, go to boss turn
             self.current_player_index = -1
@@ -97,8 +115,16 @@ class Raid:
         await channel.send(messages.data['ten_seconds_left'])
 
     async def end_raid(self, channel, force=False):
-        await channel.send(messages.data['raid_defeated'].replace('%boss_name%',
-                                                                          self.get_raid_boss().get_name()))
+        if force:
+            raid_manager.end_raid(self.server_id)
+            await channel.send(messages.data['raid_out_of_time'])
+            return
+
+        # cancel timer
+        self.timer.cancel()
+        del self.timer
+
+        await channel.send(messages.data['raid_defeated'].replace('%boss_name%', self.get_raid_boss().get_name()))
         self.current_player = None
         self.raid_state = RaidState.REWARD
 

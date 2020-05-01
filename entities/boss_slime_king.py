@@ -26,10 +26,8 @@ class SlimeKingBoss(RaidBoss):
 
         hp = int(20 + ((level - 1) * 50))
         atk = int(10 + ((level - 1) * 2))
-        xp = int(50 + ((level - 1) * 10))
-        gold = int(100 + ((level - 1) * 20))
 
-        super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, xp, gold, BossTier.COMMON, level, 600, rewards,
+        super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, BossTier.COMMON, level, 600, rewards,
                                             messages.data['img_slime_king'], server_id)
         self.preparing_crash = False
         self.mitosis_used = False

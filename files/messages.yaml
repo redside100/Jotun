@@ -47,18 +47,25 @@ ten_seconds_left: "**10** seconds left to join the raid..."
 raid_in_other_server: "**%name%**, you're already in a raid on another server!"
 raid_failed: "All players are gone... raid failed."
 raid_player_move: "%name%, your move. **<attack/skill/guard/flee>**"
+raid_player_breakout_stun: "%name% broke out of the stun! Your move. **<attack/skill/guard/flee>**"
+raid_player_stunned: "**%name%** is stunned..."
 raid_attack_dodged: "**%boss_name%** dodged the attack!"
 raid_attack_hit: "**%boss_name%** took **%amount%** damage! (**%hp%** left)"
 raid_defeated: "**%boss_name%** was defeated!"
 raid_fled: "**%name%** ran away..."
+raid_out_of_time: "Raid timer expired... raid failed."
 
 
 # ======================= Raid Bosses ================ #
+# ======================= Slime King ================= #
 slime_king_mitosis: "**Slime King** uses **Mitosis**!"
 slime_king_mitosis_dead: "**Lesser Slime** was defeated...\n**Slime King** returns."
 slime_king_prepare_crash: "**%boss_name%** prepares **Crash**..."
 slime_king_tackle: "**%boss_name%** uses **Tackle**..."
 slime_king_crash: "**%boss_name%** uses **Crash**..."
+# ======================= Useless Goddess ============ #
+useless_goddess_cry: "**Useless Goddess** uses **Cry**! Nothing happens..."
+useless_goddess_complain: "**Useless Goddess** uses **Complain**!"
 
 
 # ======================= Emojis ==================== #
@@ -76,3 +83,4 @@ cooldown_timer: "**%name%**, you can't use **%action%** for another **%time%**."
 
 # ======================= Images ==================== #
 img_slime_king: "https://i.imgur.com/ZHmXhb5.gif"
+img_useless_goddess: "https://i.imgur.com/ODJGSFH.gif"

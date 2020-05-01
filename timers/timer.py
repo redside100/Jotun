@@ -15,7 +15,7 @@ class Timer:
         self.args = args
         self.force = force
         self.alive = True
-        self.cancel = False
+        self.cancelled = False
         # We gotta use the main asyncio event loop to interact with the bot
         self.main_event_loop = event_loop
 
@@ -36,7 +36,7 @@ class Timer:
     # Start the timer
     async def start_timer(self):
         # Tick
-        while self.current_tick > 0 and not self.cancel:
+        while self.current_tick > 0 and not self.cancelled:
             await asyncio.sleep(1)
             self.current_tick -= 1
             # Check for event
@@ -50,7 +50,7 @@ class Timer:
                     else:
                         asyncio.run_coroutine_threadsafe(self.event_func(*self.event_args), self.main_event_loop)
 
-        if not self.cancel:
+        if not self.cancelled:
             # No longer alive, call end coroutine
             self.alive = False
             if self.force:
@@ -67,4 +67,5 @@ class Timer:
         return self.current_tick
 
     def cancel(self):
-        self.cancel = True
+        self.cancelled = True
+

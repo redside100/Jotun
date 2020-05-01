@@ -13,7 +13,7 @@ class BossTier(Enum):
 
 
 class RaidBoss:
-    def __init__(self, name, hp, atk, eva, xp_reward, gold_reward, tier, level, raid_time, rewards, url, server_id):
+    def __init__(self, name, hp, atk, eva, tier, level, raid_time, rewards, url, server_id):
         self.rewards = rewards
         self.server_id = server_id
         self.name = name
@@ -21,8 +21,6 @@ class RaidBoss:
         self.max_hp = hp
         self.atk = atk
         self.eva = eva
-        self.xp_reward = xp_reward
-        self.gold_reward = gold_reward
         self.tier = tier
         self.level = level
         self.raid_time = raid_time
@@ -44,12 +42,6 @@ class RaidBoss:
 
     def get_eva(self):
         return self.eva
-
-    def get_xp_reward(self):
-        return self.xp_reward
-
-    def get_gold_reward(self):
-        return self.gold_reward
 
     def get_tier(self):
         return self.tier

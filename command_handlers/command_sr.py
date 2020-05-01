@@ -1,11 +1,12 @@
-import messages
 import asyncio
 import command_handlers.command_raid_info as command_raid_info
 import raids.raid_manager as raid_manager
-from entities.boss_slime_king import SlimeKingBoss
 
 
 # Force spawn a raid
+from entities.boss_useless_goddess import UselessGoddessBoss
+
+
 async def handle(message, db):
     id = message.author.id
     server_id = message.guild.id
@@ -15,8 +16,8 @@ async def handle(message, db):
         await message.channel.send("Raid already in progress")
         return
 
-    raid_manager.add_raid(server_id, SlimeKingBoss(1, server_id), message.channel, asyncio.get_event_loop())
-    await message.channel.send("Raid started (Slime King)")
+    raid_manager.add_raid(server_id, UselessGoddessBoss(1, server_id), message.channel, asyncio.get_event_loop())
+    await message.channel.send("Raid started (Useless Goddess)")
 
     # Call this cause why not
     await command_raid_info.handle(message, db)

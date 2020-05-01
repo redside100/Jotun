@@ -7,10 +7,11 @@ import utils
 import raids.raid_manager as raid_manager
 from command_handlers import command_raid_info
 from entities.boss_slime_king import SlimeKingBoss
+from entities.boss_useless_goddess import UselessGoddessBoss
 from entities.raid_boss import BossTier
 
 boss_pool = {
-    BossTier.COMMON: [SlimeKingBoss],
+    BossTier.COMMON: [SlimeKingBoss, UselessGoddessBoss],
     BossTier.RARE: [],
     BossTier.EPIC: [],
     BossTier.LEGENDARY: [],
@@ -42,7 +43,7 @@ async def handle(message, db):
         if roll < chance:
             # Spawn a random raid
             roll = random.uniform(0, 1)
-            # Well... only one boss rn so just common
+            # Well... only two bosses rn so just common
             boss = None
             if 0 <= roll <= 1:
                 boss = random.choice(boss_pool[BossTier.COMMON])

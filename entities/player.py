@@ -1,6 +1,7 @@
 import random
 import math
 
+
 class Player:
     def __init__(self, id, name, db):
         self.id = id
@@ -95,11 +96,4 @@ class Player:
                 break
 
         return levels, raw_xp, level_to_xp(curr_level)
-
-
-
-
-
-
-
 

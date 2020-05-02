@@ -69,7 +69,12 @@ class Raid:
 
         # Check if all players gone (no players left)
         if len(self.get_players()) == 0:
-            await self.end_raid(channel)
+
+            # cancel timer
+            self.timer.cancel()
+            del self.timer
+
+            raid_manager.end_raid(self.server_id)
             await channel.send(messages.data['raid_failed'])
             return
 

@@ -24,7 +24,7 @@ class SlimeKingBoss(RaidBoss):
     def __init__(self, level, server_id):
         # Scale w/ level
 
-        hp = int(20 + ((level - 1) * 50))
+        hp = int(300 + ((level - 1) * 50))
         atk = int(10 + ((level - 1) * 2))
 
         super(SlimeKingBoss, self).__init__("Slime King", hp, atk, 15, BossTier.COMMON, level, 600, rewards,

@@ -35,7 +35,8 @@ class HealthRingItem(item.Item):
             del info['items']['ring_hp']
 
         db.set_player_info(message.author.id, info)
-        await message.channel.send(messages.data['equip_successful'].replace('%name%', "Ring of Health"))
+        await message.channel.send(messages.data['equip_successful'].replace('%item_name%', "Ring of Health")
+                                   .replace('%name%', message.author.name))
 
     async def dequip(self, message, db, announce=True):
         info = db.init_info_check(message)
@@ -53,5 +54,6 @@ class HealthRingItem(item.Item):
 
         db.set_player_info(message.author.id, info)
         if announce:
-            await message.channel.send(messages.data['dequip_successful'].replace('%name%', "Ring of Health"))
+            await message.channel.send(messages.data['dequip_successful'].replace('%item_name%', "Ring of Health")
+                                       .replace('%name%', message.author.name))
 

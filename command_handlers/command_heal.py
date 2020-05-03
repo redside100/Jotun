@@ -23,10 +23,15 @@ async def handle(message, db):
 
     if curr_time >= player_cds['heal']:
         amount = int(info['max_hp'] * random.uniform(0.4, 0.7))  # 40-70% of max hp
+        mp_amount = int(info['max_mp'] * random.uniform(0.4, 0.7))  # 40-70% of max mp
 
         info['hp'] += amount
+        info['mp'] += amount
+
         if info['hp'] > info['max_hp']:
             info['hp'] = info['max_hp']
+        if info['mp'] > info['max_mp']:
+            info['mp'] = info['max_mp']
 
         # Update db
         db.set_player_info(id, info)
@@ -36,7 +41,7 @@ async def handle(message, db):
         db.set_player_cds(id, player_cds)
 
         await message.channel.send(messages.data['heal_successful'].replace('%name%', name)
-                                   .replace('%amount%', str(amount)))
+                                   .replace('%amount%', str(amount)).replace('%amount2%', str(mp_amount)))
 
         pass
     else:

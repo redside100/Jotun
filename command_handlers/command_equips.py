@@ -16,7 +16,7 @@ async def handle(message, db):
     name = message.author.name
     info = db.init_info_check(message)
 
-    embed = discord.Embed(title="{}'s Equips".format(name),
+    embed = discord.Embed(title="{}'s Equipment".format(name),
                           description="Class: {}".format(info['class']), color=class_colors[info['class']])
     embed.set_thumbnail(url=message.author.avatar_url)
     content = "\u200B"

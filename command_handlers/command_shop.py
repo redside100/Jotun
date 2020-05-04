@@ -12,8 +12,8 @@ async def handle(message, db):
 
     for item_name in item_map.item_shop_map:
         item = item_map.item_shop_map[item_name]()
-        content += "{} {} ({} x{})\n".format(item.get_emoji(), item.get_name(), messages.data['emoji_gold'],
-                                             item.get_gold_amount())
+        content += "{} {} - **{}** {}\n".format(item.get_emoji(), item.get_name(),
+                                             item.get_gold_amount(), messages.data['emoji_gold'])
 
     embed.add_field(name="\u200B", value=content)
     await message.channel.send(embed=embed)

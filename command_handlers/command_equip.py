@@ -33,7 +33,7 @@ async def handle(message, db):
             await message.channel.send(messages.data['invalid_equip_item'].replace('%name%', name))
             return
 
-        # Use the item
+        # Equip the item
         await item.equip(message, db)
 
     else:

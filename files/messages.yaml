@@ -7,6 +7,9 @@ class_already_chosen: "**%name%**, you're already a **%class%**. To choose a dif
 # ======================= HP Potion ================= #
 health_already_full: "**%name%**, you're already at max HP!"
 use_health_potion: "**%name%**: It's a bit bitter... but it restored **%amount%** HP!"
+# ======================= MP Potion ================= #
+mana_already_full: "**%name%**, you're already at max MP!"
+use_mana_potion: "**%name%**: It's a bit bitter... but it restored **%amount%** MP!"
 
 # ====================== Usage Message ==================== #
 class_usage: "Declare your class with: **>class <knight/priest/wizard/paladin>**"
@@ -74,6 +77,7 @@ emoji_level: "<:level:667909268409679882>"
 emoji_xp: "<:xp:667908777952935950>"
 emoji_gold: "<:gold:667906459031437332>"
 emoji_health_potion: "<:health_potion:668178268603678755>"
+emoji_mana_potion: "<:mana_potion:706717654769074187>"
 emoji_hp_ring: "<:hp_ring:705560131353706557>"
 
 # ======================= Links ==================== #
